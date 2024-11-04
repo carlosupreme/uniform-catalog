@@ -63,12 +63,14 @@ export default function AllUniforms() {
 function UniformCard() {
     const ultimasPiezas = Math.random() > 0.5;
 
-    return <Link to="/uniforme/1"
-        className="p-0 w-full flex flex-col flex-1 min-h-0 min-w-0 cursor-pointer">
-        <img src={foto} alt="" className="h-52 object-cover"/>
+    return <div
+        className="p-0 w-full flex flex-col flex-1 min-h-0 min-w-0 ">
+        <Link to="/uniforme/1">
+            <img src={foto} alt="" className="h-52 object-cover cursor-pointer"/>
+        </Link>
         <div className="flex flex-col text-sm gap-1 p-3 bg-white">
             {ultimasPiezas && <h6 className="font-semibold text-orange-700">Ultimas piezas</h6>}
-            <p className="font-bold">Liga libertadores</p>
+            <Link to="/uniforme/1" className="font-bold">Liga libertadores</Link>
             <p className="text-gray-500">Description del uniforme un poco detallada</p>
             <div className="flex items-center justify-between text-gray-500">
                 <p>Disponible: <u>50</u></p>
@@ -78,7 +80,7 @@ function UniformCard() {
                 </div>
             </div>
         </div>
-    </Link>
+    </div>
 }
 
 function AskForUniformButton() {
