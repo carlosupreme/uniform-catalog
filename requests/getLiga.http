@@ -1,0 +1,1 @@
+GET http://localhost:1337/api/ligas/ry3pbl2q7ugoaznonq93ju47?populate[uniformes][populate][0]=fotos

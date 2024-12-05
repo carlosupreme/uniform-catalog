@@ -43,7 +43,7 @@ const CustomLeftArrow = ({onClick}: ArrowProps) => {
 
 
 export default function ImagesSlide({children}: { children: React.ReactNode }) {
-    const responsive = {mobile: {breakpoint: {max: 764, min: 0}, items: 1}};
+    const responsive = {mobile: {breakpoint: {max: 1400, min: 0}, items: 1}};
 
     return <Carousel
         showDots={true}

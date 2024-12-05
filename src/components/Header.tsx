@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Heart} from "./icons/Heart.tsx";
+// import {Heart} from "./icons/Heart.tsx";
 
 function HeaderButton({children}: { children: React.ReactNode }) {
     return (
@@ -25,9 +25,9 @@ function SearchButton() {
     </Link>
 }
 
-function FavoritesButton() {
-    return <Link to="/favoritos"><HeaderButton><Heart/></HeaderButton></Link>
-}
+// function FavoritesButton() {
+//     return <Link to="/favoritos"><HeaderButton><Heart/></HeaderButton></Link>
+// }
 
 function ContactButton() {
     return <Link to="/contacto">
@@ -57,11 +57,11 @@ export default function Header() {
             className="flex items-center justify-between w-full h-16 bg-white mx-auto p-4">
             <div>
                 Catalogo
-            </div>
+            </div>  
 
             <div className="flex gap-1 items-center">
                 <SearchButton/>
-                <FavoritesButton/>
+                {/* <FavoritesButton/> */}
                 <ContactButton/>
             </div>
         </div>
