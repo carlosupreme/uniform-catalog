@@ -7,6 +7,7 @@ export interface Uniform {
     clave: string,
     disponibles: number,
     fotos: UniformImage[],
-    liga: League
+    liga: League,
+    categoria: string
 }
 
