@@ -8,14 +8,15 @@ import YouMayAlsoLike from "../components/uniform/YouMakeAlsoLike.tsx";
 import { useUniform } from "../hooks/useUniform.ts";
 import { UniformImage } from "../models/UniformImage.ts";
 import { useEffect } from "react";
+import { Uniform as UniformData} from "../models/Uniform.ts";
 
 const IMAGES_URL = "http://localhost:1337"
 
 export default function Uniform() {
     const { id } = useParams();
     const { data: uniform, isLoading, isError } = useUniform(id!);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         console.log(uniform)
     }, [uniform])
 
@@ -56,24 +57,26 @@ export default function Uniform() {
                 <SelectSize />
 
                 <div className="px-4 flex flex-col gap-2 font-bold">
-                    <BuyUniformButton />
+                    <BuyUniformButton uniform={uniform!} />
                     {/* <AddToFavoritesButton /> */}
                 </div>
             </div>
 
-            <YouMayAlsoLike 
-            currentUniformId={id!}
-            leagueId={uniform!.liga.documentId}/>
+            <YouMayAlsoLike
+                currentUniformId={id!}
+                leagueId={uniform!.liga.documentId} />
         </Layout>
 
     )
 }
 
-function BuyUniformButton() {
-    return <button
-        className="w-full rounded-full bg-slate-900 text-white py-3.5 px-4">
+function BuyUniformButton({ uniform }: { uniform: UniformData }) {
+    return <a href={`https://wa.me/529513222076?text=Hola, me interesa comprar el uniforme modelo: ${uniform.modelo}, clave: ${uniform.clave} que vi en su catálogo`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full rounded-full text-center bg-slate-900 text-white py-3.5 px-4">
         Comprar producto
-    </button>
+    </a>
 }
 
 // function AddToFavoritesButton() {

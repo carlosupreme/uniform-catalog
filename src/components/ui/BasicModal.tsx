@@ -54,7 +54,7 @@ export default function BasicModal() {
 
 
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-Filtrar por categoria                     </Typography>
+                        Filtrar por categoria                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Esta es la filtracion por liga .
                     </Typography>
