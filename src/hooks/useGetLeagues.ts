@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import {League} from "../models/League.ts";
 
-const API_URL = "http://127.0.0.1:1337/api"
+const API_URL =  import.meta.env.BASE_URL +  "/api"
 type Response = { data: League[] }
 
 export const useGetLeagues = () => {

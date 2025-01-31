@@ -21,7 +21,7 @@ export default function YouMayAlsoLike({ leagueId, currentUniformId }: { leagueI
 
 
 function UniformList({ uniforms, except }: { uniforms?: Uniform[], except: string }) {
-    const IMAGES_URL = "http://localhost:1337";
+    const IMAGES_URL = import.meta.env.BASE_URL;
 
     return <div className="flex gap-3 overflow-x-auto">
         {uniforms?.filter(

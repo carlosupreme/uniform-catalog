@@ -3,11 +3,12 @@ import {Link} from "react-router-dom";
 // import {Heart} from "../icons/Heart.tsx";
 import {Uniform} from "../../models/Uniform.ts";
 
-const IMAGES_URL = "http://localhost:1337"
+const IMAGES_URL =  import.meta.env.BASE_URL
 
 export default function UniformCard({uniform}: { uniform: Uniform }) {
     const {fotos, modelo, clave, disponibles, documentId} = uniform;
     const uniformLink = `/uniforme/${documentId}`
+
     return <div
         className="p-0 w-full flex flex-col flex-1 min-h-0 min-w-0 ">
         <Link to={uniformLink}>

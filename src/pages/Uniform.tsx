@@ -10,7 +10,7 @@ import { UniformImage } from "../models/UniformImage.ts";
 import { useEffect } from "react";
 import { Uniform as UniformData} from "../models/Uniform.ts";
 
-const IMAGES_URL = "http://localhost:1337"
+const IMAGES_URL = import.meta.env.BASE_URL
 
 export default function Uniform() {
     const { id } = useParams();
