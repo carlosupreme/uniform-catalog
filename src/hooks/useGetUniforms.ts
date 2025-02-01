@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Uniform } from "../models/Uniform.ts";
 
-const API_URL = import.meta.env.BASE_URL +  "/api"
+const API_URL =  import.meta.env.VITE_API_URL +  "/api"
 type Response = { data: Uniform[] }
 
 export const useGetUniforms = () => {
