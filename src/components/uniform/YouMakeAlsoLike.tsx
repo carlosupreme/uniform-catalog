@@ -21,8 +21,6 @@ export default function YouMayAlsoLike({ leagueId, currentUniformId }: { leagueI
 
 
 function UniformList({ uniforms, except }: { uniforms?: Uniform[], except: string }) {
-    const IMAGES_URL = import.meta.env.BASE_URL;
-
     return <div className="flex gap-3 overflow-x-auto">
         {uniforms?.filter(
             (uniform: Uniform) => uniform.documentId !== except
@@ -31,7 +29,7 @@ function UniformList({ uniforms, except }: { uniforms?: Uniform[], except: strin
                 to={`/uniforme/${uniform.documentId}`}
                 key={uniform.documentId}
                 className="mb-4 w-64 flex flex-col gap-2 text-sm min-w-64 overflow-hidden">
-                <img src={IMAGES_URL + uniform.fotos[0].url} alt="" className="rounded-lg w-full aspect-square object-cover" />
+                <img src={uniform.fotos && uniform.fotos.length > 0 ? uniform.fotos[0].url : '/placeholder.png'} alt="" className="rounded-lg w-full aspect-square object-cover" />
                 <div>
                     <h4 className="font-bold">{uniform.modelo}</h4>
                     <h5 className="opacity-80">Disponibles {uniform.disponibles}</h5>

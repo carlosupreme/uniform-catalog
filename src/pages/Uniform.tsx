@@ -10,7 +10,6 @@ import { UniformImage } from "../models/UniformImage.ts";
 import { useEffect } from "react";
 import { Uniform as UniformData} from "../models/Uniform.ts";
 
-const IMAGES_URL = import.meta.env.VITE_API_URL
 
 export default function Uniform() {
     const { id } = useParams();
@@ -38,16 +37,16 @@ export default function Uniform() {
             </div>
 
             <div className="w-full flex flex-col gap-4">
-                {uniform?.fotos.length === 1
+                {uniform?.fotos && uniform?.fotos?.length === 1
                     ? (<img
-                        src={IMAGES_URL + uniform?.fotos[0].url}
+                        src={uniform?.fotos[0].url}
                         key={uniform?.fotos[0].id}
                         alt={uniform?.fotos[0].id}
                         className="w-full h-full object-cover"
                     />)
                     : (<ImagesSlide>
                         {uniform?.fotos.map((image: UniformImage) => <img
-                            src={IMAGES_URL + image.url}
+                            src={image.url}
                             key={image.id}
                             alt={image.id}
                             className="w-full h-full object-cover"
