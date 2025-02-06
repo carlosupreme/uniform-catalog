@@ -10,6 +10,7 @@ export default function AllUniforms() {
   const { data, isPending } = useGetUniforms();
   const [uniformsByCategory, setUniformsByCategory] = useState<Uniform[]>([]);
   const [uniforms, setUniforms] = useState<Uniform[]>([]);
+  const [currentLeague, setCurrentLeague] = useState<string>("todas");
 
   // Filter uniforms by category and update both states
   const filterByCategory = (category: string) => {
@@ -29,6 +30,12 @@ export default function AllUniforms() {
 
   // Further filter the uniforms by league
   const filterByLeague = (league: string) => {
+    setCurrentLeague(league);
+    if(league === "todas") {
+      setUniforms(uniformsByCategory);
+      return
+    }
+
     const filteredByLeague = uniformsByCategory?.filter(
       (uniform: Uniform) =>
         uniform.liga?.nombre?.toLowerCase() === league.toLowerCase()
@@ -58,7 +65,7 @@ export default function AllUniforms() {
       {/* Filter section: Responsive flex layout */}
       <div className="font-semibold p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between">
         <p className="text-gray-500">{uniforms?.length} resultados</p>
-        <FilterModal onSelect={filterByLeague} />
+        <FilterModal onSelect={filterByLeague} current={currentLeague}/>
       </div>
 
       {/* Responsive grid for uniform cards */}

@@ -21,7 +21,7 @@ const style = {
     p: 4,
     borderRadius: 2,
 };
-export default function FilterModal({onSelect}: {onSelect: Function}) {
+export default function FilterModal({onSelect, current}: {onSelect: Function, current:string}) {
     const [open, setOpen] = React.useState(false);
     const {data:dataLeague}=useGetLeagues();
 
@@ -43,12 +43,19 @@ export default function FilterModal({onSelect}: {onSelect: Function}) {
                     <RadioGroup
                         onChange={handleLeagueChange}
                     >
+                        <FormControlLabel
+                                key={"todas"}
+                                value={"todas"}
+                                
+                                control={<Radio checked={current === "todas"} />}
+                                label={"Todas"}
+                            />
                         {dataLeague?.map((liga) => (
 
                             <FormControlLabel
                                 key={liga.documentId}
                                 value={liga.nombre}
-                                control={<Radio />}
+                                control={<Radio checked={current === liga.nombre} />}
                                 label={liga.nombre}
                             />
                         ))}
@@ -59,7 +66,7 @@ export default function FilterModal({onSelect}: {onSelect: Function}) {
                             variant="contained"
                             onClick={() => setOpen(false)}
                         >
-                            Aplicar
+                            Cerrar
                         </Button>
                     </Box>
                 </Box>
