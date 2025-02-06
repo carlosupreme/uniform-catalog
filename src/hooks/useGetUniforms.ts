@@ -7,7 +7,7 @@ type Response = { data: Uniform[] }
 export const useGetUniforms = () => {
 
     const fetchUniforms = async () => {
-        const response = await fetch(`${API_URL}/uniformes?populate=*&pagination[pageSize]=1000`);
+        const response = await fetch(`${API_URL}/uniformes?populate=*&pagination[start]=0&pagination[limit]=1000`);
         const uniforms: Response = await response.json();
         return uniforms.data;
     }
