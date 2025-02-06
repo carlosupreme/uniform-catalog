@@ -6,7 +6,7 @@ type Response = { data: League[] }
 
 export const useGetLeagues = () => {
     const fetchLeagues = async () => {
-        const response = await fetch(`${API_URL}/ligas`);
+        const response = await fetch(`${API_URL}/ligas?pagination[pageSize]=1000`);
         const leagues: Response = await response.json();
         return leagues.data;
     }
