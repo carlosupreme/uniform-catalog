@@ -1,79 +1,64 @@
-import { Layout } from "../components/Layout.tsx";
-import CategorySelector from "../components/allUniforms/CategorySelector.tsx";
-import UniformCard from "../components/allUniforms/UniformCard.tsx";
-import { useGetUniforms } from "../hooks/useGetUniforms.ts";
-import { Uniform } from "../models/Uniform.ts";
-import FilterModal from "../components/ui/FilterModal.tsx";
-import { useEffect, useState } from "react";
+import { Layout } from "../components/Layout";
+import CategorySelector from "../components/allUniforms/CategorySelector";
+import UniformCard from "../components/allUniforms/UniformCard";
+import { useGetUniforms } from "../hooks/useGetUniforms";
+import FilterModal from "../components/ui/FilterModal";
+import { useCallback, useMemo, useState } from "react";
 
 export default function AllUniforms() {
-  const { data, isPending } = useGetUniforms();
-  const [uniformsByCategory, setUniformsByCategory] = useState<Uniform[]>([]);
-  const [uniforms, setUniforms] = useState<Uniform[]>([]);
-  const [currentLeague, setCurrentLeague] = useState<string>("todas");
+    const { data, isPending } = useGetUniforms();
+    const [currentLeague, setCurrentLeague] = useState<string>("todas");
+    const [currentCategory, setCurrentCategory] = useState<string>("todas");
 
-  // Filter uniforms by category and update both states
-  const filterByCategory = (category: string) => {
-    const isTodosCategory = category.length > 0;
-    if (isTodosCategory) {
-      const filteredByCategory = data?.filter(
-        (uniform: Uniform) =>
-          uniform.categoria.toLowerCase() === category.toLowerCase()
-      );
-      setUniforms(filteredByCategory ?? []);
-      setUniformsByCategory(filteredByCategory ?? []);
-    } else {
-      setUniforms(data ?? []);
-      setUniformsByCategory(data ?? []);
-    }
-  };
+    const filteredUniforms = useMemo(() => {
+        if (!data) return [];
 
-  // Further filter the uniforms by league
-  const filterByLeague = (league: string) => {
-    setCurrentLeague(league);
-    if(league === "todas") {
-      setUniforms(uniformsByCategory);
-      return
-    }
+        return data.filter(uniform => {
+            const leagueMatch = currentLeague === "todas" || uniform.liga.nombre.toLowerCase() === currentLeague.toLowerCase();
+            const categoryMatch = currentCategory === "todas" || uniform.categoria.toLowerCase().trim() === currentCategory.toLowerCase();
+            return leagueMatch && categoryMatch;
+        });
+    }, [data, currentCategory, currentLeague]);
 
-    const filteredByLeague = uniformsByCategory?.filter(
-      (uniform: Uniform) =>
-        uniform.liga?.nombre?.toLowerCase() === league.toLowerCase()
+    const handleCategoryFilter = useCallback((category: string) => {
+        setCurrentCategory(category);
+    }, []);
+
+    const handleLeagueFilter = useCallback((league: string) => {
+        setCurrentLeague(league);
+    }, []);
+
+    return (
+        <Layout loading={isPending}>
+            <h1 className="bg-white top-0 left-0 z-10 font-bold text-2xl p-6 sticky shadow-md">
+                Uniformes
+            </h1>
+
+            <div className="bg-gray-100 p-4">
+                <CategorySelector onSelect={handleCategoryFilter} current={currentCategory} />
+            </div>
+
+            <div className="font-semibold p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white shadow-sm">
+                <p className="text-gray-600 mb-4 sm:mb-0">
+                    {filteredUniforms.length} {filteredUniforms.length === 1 ? 'resultado' : 'resultados'}
+                </p>
+                <FilterModal
+                    onSelect={handleLeagueFilter}
+                    current={currentLeague}
+                />
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 bg-gray-50">
+                {filteredUniforms.map((uniform) => (
+                    <UniformCard key={uniform.documentId} uniform={uniform} />
+                ))}
+            </div>
+
+            {filteredUniforms.length === 0 && (
+                <div className="text-center py-12 text-gray-500">
+                    No se encontraron uniformes con los filtros seleccionados.
+                </div>
+            )}
+        </Layout>
     );
-    setUniforms(filteredByLeague ?? []);
-  };
-
-  // Update uniforms when data changes
-  useEffect(() => {
-    if (data) {
-      setUniforms(data);
-      setUniformsByCategory(data);
-    }
-  }, [data]);
-
-  return (
-    <Layout loading={isPending}>
-      {/* Sticky header for page title */}
-      <h1 className="bg-white top-0 left-0 z-10 font-bold text-xl p-5 sticky">
-        Uniformes
-      </h1>
-
-      {/* Category selector component */}
-      <CategorySelector onSelect={filterByCategory} />
-      <hr />
-
-      {/* Filter section: Responsive flex layout */}
-      <div className="font-semibold p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between">
-        <p className="text-gray-500">{uniforms?.length} resultados</p>
-        <FilterModal onSelect={filterByLeague} current={currentLeague}/>
-      </div>
-
-      {/* Responsive grid for uniform cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-5">
-        {uniforms?.map((uniform: Uniform) => (
-          <UniformCard key={uniform.documentId} uniform={uniform} />
-        ))}
-      </div>
-    </Layout>
-  );
 }

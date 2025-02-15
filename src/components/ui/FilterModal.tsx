@@ -8,7 +8,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { ChangeEvent } from "react";
-import {useGetLeagues} from "../../hooks/useGetLeagues.ts";
+import { useGetLeagues } from "../../hooks/useGetLeagues.ts";
 
 const style = {
     position: "absolute",
@@ -21,17 +21,17 @@ const style = {
     p: 4,
     borderRadius: 2,
 };
-export default function FilterModal({onSelect, current}: {onSelect: Function, current:string}) {
+export default function FilterModal({ onSelect, current }: { onSelect: Function, current: string }) {
     const [open, setOpen] = React.useState(false);
-    const {data:dataLeague}=useGetLeagues();
+    const { data: dataLeague } = useGetLeagues();
 
     const handleLeagueChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const league=event.target.value;
+        const league = event.target.value;
         onSelect(league);
     };
     return (
         <div>
-            <Button onClick={() => setOpen(true)} variant="outlined">
+            <Button onClick={() => setOpen(true)} variant="text">
                 Abrir filtros
             </Button>
             <Modal open={open} onClose={() => setOpen(false)}>
@@ -44,14 +44,13 @@ export default function FilterModal({onSelect, current}: {onSelect: Function, cu
                         onChange={handleLeagueChange}
                     >
                         <FormControlLabel
-                                key={"todas"}
-                                value={"todas"}
-                                
-                                control={<Radio checked={current === "todas"} />}
-                                label={"Todas"}
-                            />
-                        {dataLeague?.map((liga) => (
+                            key={"todas"}
+                            value={"todas"}
 
+                            control={<Radio checked={current === "todas"} />}
+                            label={"Todas"}
+                        />
+                        {dataLeague?.map((liga) => (
                             <FormControlLabel
                                 key={liga.documentId}
                                 value={liga.nombre}
