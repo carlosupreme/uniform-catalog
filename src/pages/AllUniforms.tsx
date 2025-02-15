@@ -42,7 +42,7 @@ export default function AllUniforms() {
     return (
         <Layout loading={isPending}>
             <h1 className="bg-white top-0 left-0 z-10 font-bold text-2xl p-4 md:p-6 sticky shadow-md">
-                Uniformes
+               Uniformes
             </h1>
 
             <div className="bg-gray-100 p-4">

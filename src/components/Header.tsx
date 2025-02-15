@@ -49,9 +49,14 @@ export default function Header() {
     return (
         <div
             className="flex items-center justify-between w-full h-16 bg-white mx-auto p-4">
-            <div>
-                Catalogo
-            </div>  
+            <div className="flex items-center gap-2">
+                <img
+                    src="/logo.jpg"
+                    alt="Logo Uniformes Magaña"
+                    className="w-6"
+                />
+                Magaña Sports
+            </div>
 
             <div className="flex gap-1 items-center">
                 <SearchButton/>
