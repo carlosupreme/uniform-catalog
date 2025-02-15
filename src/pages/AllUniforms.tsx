@@ -30,7 +30,7 @@ export default function AllUniforms() {
 
     return (
         <Layout loading={isPending}>
-            <h1 className="bg-white top-0 left-0 z-10 font-bold text-2xl p-6 sticky shadow-md">
+            <h1 className="bg-white top-0 left-0 z-10 font-bold text-2xl p-4 md:p-6 sticky shadow-md">
                 Uniformes
             </h1>
 
@@ -38,7 +38,7 @@ export default function AllUniforms() {
                 <CategorySelector onSelect={handleCategoryFilter} current={currentCategory} />
             </div>
 
-            <div className="font-semibold p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white shadow-sm">
+            <div className="font-semibold p-4 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white shadow-sm">
                 <p className="text-gray-600 mb-4 sm:mb-0">
                     {filteredUniforms.length} {filteredUniforms.length === 1 ? 'resultado' : 'resultados'}
                 </p>
@@ -48,9 +48,11 @@ export default function AllUniforms() {
                 />
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 bg-gray-50">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-auto gap-4 md:gap-6 p-4 md:p-6 bg-gray-50">
                 {filteredUniforms.map((uniform) => (
-                    <UniformCard key={uniform.documentId} uniform={uniform} />
+                    <div key={uniform.documentId} className="min-w-[300px] w-full">
+                        <UniformCard uniform={uniform} />
+                    </div>
                 ))}
             </div>
 

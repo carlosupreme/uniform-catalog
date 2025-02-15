@@ -1,28 +1,37 @@
 import { Link } from "react-router-dom";
-// import AskForUniformButton fxxrom "./AskForUniformButton.tsx";
-// import {Heart} from "../icons/Heart.tsx";
 import { Uniform } from "../../models/Uniform.ts";
 
 export default function UniformCard({ uniform }: { uniform: Uniform }) {
     const { fotos, modelo, clave, disponibles, documentId } = uniform;
-    const uniformLink = `/uniforme/${documentId}`
+    const uniformLink = `/uniforme/${documentId}`;
 
-    return <div
-        className="p-0 w-full flex flex-col flex-1 min-h-0 min-w-0 ">
-        <Link to={uniformLink}>
-            <img src={fotos && fotos.length > 0 ? fotos[0].url : "/placeholder.png"} alt="" className="h-52 w-full object-top object-cover cursor-pointer" />
-        </Link>
+    return (
+        <div className="group bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+            <Link to={uniformLink} className="block relative pb-[100%]">
+                <img
+                    src={fotos && fotos.length > 0 ? fotos[0].url : "/placeholder.png"}
+                    alt={`Uniforme ${modelo}`}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+            </Link>
 
-        <div className="flex flex-col text-sm gap-1 p-3 bg-white">
-            <Link to={uniformLink} className="font-bold">{modelo}</Link>
-            <p className="text-gray-500"> {clave}</p>
-            <div className="flex items-center justify-between text-gray-500">
-                <p>Disponible: <u>{disponibles}</u></p>
-                {/* <div className="flex gap-1 items-center">
-                    <AskForUniformButton/>
-                    <Heart/> 
-                </div> */}
+            <div className="p-4">
+                <Link to={uniformLink} className="block font-bold text-lg mb-2 hover:text-blue-600 transition-colors duration-300">
+                    {modelo}
+                </Link>
+                <p className="text-gray-600 text-sm mb-2">{clave}</p>
+                <div className="flex items-center justify-between text-sm">
+                    <p className="text-gray-700">
+                        Disponible: <span className="font-semibold">{disponibles}</span>
+                    </p>
+                    <Link
+                        to={uniformLink}
+                        className=" text-black px-4 py-2 rounded hover:underline transition-colors duration-300"
+                    >
+                        Ver detalles
+                    </Link>
+                </div>
             </div>
         </div>
-    </div>
+    );
 }
